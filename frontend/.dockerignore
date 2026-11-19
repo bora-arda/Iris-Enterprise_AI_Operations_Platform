@@ -3,4 +3,11 @@ build
 .cache
 playwright-report
 test-results
+screenshots
+*.mjs
+README.md
+.nvmrc
+Dockerfile
 npm-debug.log*
+.env
+.env.*

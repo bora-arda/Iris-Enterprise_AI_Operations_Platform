@@ -111,7 +111,7 @@ node capture_grafana.mjs ../docs/assets       # Grafana (:3001)
 | Authentication (JWT) + role-based access control | ✅ Complete |
 | Iris React frontend: live JWT login, approvals queue/drawer, agent chat, saved chat history, responsive light/dark UI | ✅ Complete (production build verified) |
 | Approval API enrichment (invoice, vendor, requester, department, amount, risk) | ✅ Complete |
-| Full Docker Compose stack (6 services) | ✅ Verified for the deterministic stack; rebuild pending for the agent version |
+| Full Docker Compose stack (6 services) | ✅ Dockerfiles updated for Iris v1.0; rebuild required before Docker verification |
 | LLM planner / agent | ⚙️ Optional; fast paths remain deterministic |
 | MCP server | ✅ stdio + streamable HTTP (:8001), tool calls verified |
 
@@ -222,6 +222,10 @@ docker compose up --build -d
 Grafana is provisioned automatically with the Prometheus datasource and the
 **Procurement AI Platform** dashboard (request rate, workflow routes, node/LLM
 latency, tokens, tool calls, approvals, and open exceptions).
+
+The frontend image builds with **Node 26.13.0 LTS** and nginx proxies `/api/`
+to the Compose API service, so the browser uses the same origin as the UI. The
+Grafana shortcut URL is configurable through `REACT_APP_GRAFANA_URL`.
 
 Verified locally: API health, JWT login, agent-first chat, frontend on :3000,
 MCP `list_tools`/tool calls over HTTP, Prometheus targets `up`, and the Grafana

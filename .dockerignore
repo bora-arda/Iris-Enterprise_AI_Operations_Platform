@@ -59,14 +59,20 @@ coverage.xml
 *.log
 logs/
 
-# Frontend
+# Frontend and screenshots (the frontend has its own Docker build context)
+frontend/
 frontend/node_modules/
 frontend/build/
 frontend/dist/
 
+# Local agent skills and generated artifacts
+.agents/
+skills-lock.json
+
+# Runtime data and documentation are not needed in the API/MCP build context
+data/
+docs/
+
 # Docker
 .docker/
 docker-compose.override.yml
-
-# Documentation
-docs/evaluation/RESULTS.md

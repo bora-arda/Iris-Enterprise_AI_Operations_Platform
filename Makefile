@@ -1,4 +1,4 @@
-.PHONY: help install test lint format typecheck docker-up docker-down docker-prune clean
+.PHONY: help install test lint format typecheck docker-build docker-up docker-down docker-logs docker-restart docker-prune clean
 
 help: ## Show this help message
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
@@ -27,11 +27,20 @@ format: ## Run formatter
 typecheck: ## Run type checker
 	uv run mypy src/
 
+docker-build: ## Build the current Docker images
+	docker compose build
+
 docker-up: ## Start Docker services
 	docker compose up -d
 
 docker-down: ## Stop Docker services
 	docker compose down
+
+docker-logs: ## Follow Docker service logs
+	docker compose logs -f
+
+docker-restart: ## Restart the Docker Compose stack
+	docker compose restart
 
 docker-prune: ## Reclaim all Docker build cache and dangling images (keeps volumes)
 	docker builder prune -af
